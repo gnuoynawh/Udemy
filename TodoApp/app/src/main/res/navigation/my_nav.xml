@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/listFragment2">
+    app:startDestination="@id/listFragment">
     <fragment
-        android:id="@+id/listFragment2"
+        android:id="@+id/listFragment"
         android:name="com.gnuoynawh.udemy.todo.fragments.list.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" >
         <action
-            android:id="@+id/action_listFragment2_to_addFragment"
+            android:id="@+id/action_listFragment_to_addFragment"
             app:destination="@id/addFragment" />
         <action
-            android:id="@+id/action_listFragment2_to_updateFragment"
+            android:id="@+id/action_listFragment_to_updateFragment"
             app:destination="@id/updateFragment" />
     </fragment>
     <fragment
@@ -22,8 +22,8 @@
         android:label="fragment_add"
         tools:layout="@layout/fragment_add" >
         <action
-            android:id="@+id/action_addFragment_to_listFragment2"
-            app:destination="@id/listFragment2" />
+            android:id="@+id/action_addFragment_to_listFragment"
+            app:destination="@id/listFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
@@ -31,7 +31,7 @@
         android:label="fragment_update"
         tools:layout="@layout/fragment_update" >
         <action
-            android:id="@+id/action_updateFragment_to_listFragment2"
-            app:destination="@id/listFragment2" />
+            android:id="@+id/action_updateFragment_to_listFragment"
+            app:destination="@id/listFragment" />
     </fragment>
 </navigation>
