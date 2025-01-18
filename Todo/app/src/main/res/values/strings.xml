@@ -3,4 +3,12 @@
 
     <string name="no_data">No Data</string>
     <string name="floatingactionbutton">floatingActionButton</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+
+    <string-array name="priorities">
+        <item>High Priority</item>
+        <item>Medium Priority</item>
+        <item>Low Priority</item>
+    </string-array>
 </resources>
