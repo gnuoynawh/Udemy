@@ -1,4 +1,4 @@
-package com.gnuoynawh.udemy.todo.data
+package com.gnuoynawh.udemy.todo.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

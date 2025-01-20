@@ -1,6 +1,7 @@
 package com.gnuoynawh.udemy.todo.data
 
 import androidx.room.TypeConverter
+import com.gnuoynawh.udemy.todo.data.models.Priority
 
 class Converter {
 
