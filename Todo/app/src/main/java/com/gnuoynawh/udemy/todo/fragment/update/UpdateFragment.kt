@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -47,8 +48,9 @@ class UpdateFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_save) {
-            updateDataTodo()
+        when(item.itemId) {
+            R.id.menu_save -> updateDataTodo()
+            R.id.menu_delete -> confirmItemRemoval()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -73,5 +75,23 @@ class UpdateFragment : Fragment() {
         } else {
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun confirmItemRemoval() {
+        AlertDialog.Builder(requireContext())
+            .setPositiveButton("Yes") { _, _ ->
+                mTodoViewModel.deleteItem(args.todo)
+                Toast.makeText(
+                    requireContext(),
+                    "Successfully Removed: ${args.todo.title}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+            }
+            .setNegativeButton("No") { _, _ -> }
+            .setTitle("Delete '${args.todo.title}'")
+            .setMessage("Are you sure you want to remove '${args.todo.title}'")
+            .create()
+            .show()
     }
 }
