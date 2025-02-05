@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.gnuoynawh.udemy.todo.data.models.TodoData
 
 @Dao
@@ -15,5 +16,8 @@ interface TodoDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(todoData: TodoData)
+
+    @Update
+    suspend fun updateData(todoData: TodoData)
 
 }

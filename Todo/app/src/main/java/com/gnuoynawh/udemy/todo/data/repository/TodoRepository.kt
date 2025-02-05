@@ -12,4 +12,7 @@ class TodoRepository(private val todoDao: TodoDao) {
         todoDao.insertData(todoData = todoData)
     }
 
+    suspend fun updateData(todoData: TodoData) {
+        todoDao.updateData(todoData)
+    }
 }
