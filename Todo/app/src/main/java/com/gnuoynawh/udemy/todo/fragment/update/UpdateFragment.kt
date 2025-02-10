@@ -83,14 +83,14 @@ class UpdateFragment : Fragment() {
                 mTodoViewModel.deleteItem(args.todo)
                 Toast.makeText(
                     requireContext(),
-                    "Successfully Removed: ${args.todo.title}",
+                    "Successfully Removed: ${args.todo.title}!",
                     Toast.LENGTH_SHORT
                 ).show()
                 findNavController().navigate(R.id.action_updateFragment_to_listFragment)
             }
             .setNegativeButton("No") { _, _ -> }
-            .setTitle("Delete '${args.todo.title}'")
-            .setMessage("Are you sure you want to remove '${args.todo.title}'")
+            .setTitle("Delete '${args.todo.title}'?")
+            .setMessage("Are you sure you want to remove '${args.todo.title}'?")
             .create()
             .show()
     }
