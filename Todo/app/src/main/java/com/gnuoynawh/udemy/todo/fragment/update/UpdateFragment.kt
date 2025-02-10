@@ -18,29 +18,31 @@ import androidx.navigation.fragment.navArgs
 import com.gnuoynawh.udemy.todo.R
 import com.gnuoynawh.udemy.todo.data.models.TodoData
 import com.gnuoynawh.udemy.todo.data.viewmodel.TodoViewModel
+import com.gnuoynawh.udemy.todo.databinding.FragmentUpdateBinding
 import com.gnuoynawh.udemy.todo.fragment.SharedViewModel
 
 class UpdateFragment : Fragment() {
 
-    private lateinit var mView: View
     private val args by navArgs<UpdateFragmentArgs>()
+
     private val mSharedViewModel: SharedViewModel by viewModels()
     private val mTodoViewModel: TodoViewModel by viewModels()
+
+    private var _binding: FragmentUpdateBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        mView = inflater.inflate(R.layout.fragment_update, container, false)
+    ): View {
+        _binding = FragmentUpdateBinding.inflate(inflater, container, false)
+        binding.todo = args.todo
 
-        mView.findViewById<EditText>(R.id.edt_custom_title).setText(args.todo.title)
-        mView.findViewById<EditText>(R.id.edt_custom_description).setText(args.todo.description)
-        mView.findViewById<Spinner>(R.id.spinner_custom_priorities).setSelection(mSharedViewModel.parsePriority(args.todo.priority))
-        mView.findViewById<Spinner>(R.id.spinner_custom_priorities).onItemSelectedListener = mSharedViewModel.listener
+        binding.spinnerCustomPriorities.onItemSelectedListener = mSharedViewModel.listener
 
         setHasOptionsMenu(true)
 
-        return mView
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -56,9 +58,9 @@ class UpdateFragment : Fragment() {
     }
 
     private fun updateDataTodo() {
-        val mTitle = mView.findViewById<EditText>(R.id.edt_custom_title).text.toString()
-        val mPriority = mView.findViewById<Spinner>(R.id.spinner_custom_priorities).selectedItem.toString()
-        val mDescription = mView.findViewById<EditText>(R.id.edt_custom_description).text.toString()
+        val mTitle = binding.edtCustomTitle.text.toString()
+        val mPriority = binding.spinnerCustomPriorities.selectedItem.toString()
+        val mDescription = binding.edtCustomDescription.text.toString()
 
         val validation = mSharedViewModel.verifyDataFromUser(mTitle, mDescription)
 
