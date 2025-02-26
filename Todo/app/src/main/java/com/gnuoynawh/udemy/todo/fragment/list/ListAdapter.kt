@@ -8,6 +8,7 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gnuoynawh.udemy.todo.R
 import com.gnuoynawh.udemy.todo.data.models.Priority
@@ -88,8 +89,13 @@ class ListAdapter() : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     }
 
     fun setData(todoData: List<TodoData>) {
+//        this.dataList = todoData
+//        notifyDataSetChanged()
+
+        val todoDiffUtil = TodoDiffUtil(dataList, todoData)
+        val todoDiffResult = DiffUtil.calculateDiff(todoDiffUtil)
         this.dataList = todoData
-        notifyDataSetChanged()
+        todoDiffResult.dispatchUpdatesTo(this)
     }
 }
 
