@@ -27,4 +27,12 @@ class TodoRepository(private val todoDao: TodoDao) {
     fun searchItems(searchQuery: String) : LiveData<List<TodoData>> {
         return todoDao.searchItems(searchQuery)
     }
+
+    fun sortByHighPriority() : LiveData<List<TodoData>> {
+        return todoDao.sortByHighPriority()
+    }
+
+    fun sortByLowPriority() : LiveData<List<TodoData>> {
+        return todoDao.sortByLowPriority()
+    }
 }
