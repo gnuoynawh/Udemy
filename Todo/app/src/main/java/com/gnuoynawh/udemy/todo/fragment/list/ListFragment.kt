@@ -17,9 +17,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.gnuoynawh.udemy.todo.R
 import com.gnuoynawh.udemy.todo.data.models.TodoData
 import com.gnuoynawh.udemy.todo.data.viewmodel.TodoViewModel
@@ -109,7 +111,10 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun setRecyclerView() {
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+//        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+//        recyclerView.layoutManager = GridLayoutManager(requireActivity(), 2)
+        recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
         recyclerView.itemAnimator = SlideInUpAnimator().apply {
             addDuration = 500
         }
