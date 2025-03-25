@@ -27,6 +27,7 @@ import com.gnuoynawh.udemy.todo.data.models.TodoData
 import com.gnuoynawh.udemy.todo.data.viewmodel.TodoViewModel
 import com.gnuoynawh.udemy.todo.databinding.FragmentListBinding
 import com.gnuoynawh.udemy.todo.fragment.SharedViewModel
+import com.gnuoynawh.udemy.todo.hideKeyboard
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
@@ -52,6 +53,8 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
         //set RecyclerView
         setRecyclerView()
+
+        hideKeyboard(requireActivity())
 
         // Observe LiveData
         mToDoViewModel.getAllData.observe(viewLifecycleOwner) { data ->
