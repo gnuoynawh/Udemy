@@ -28,6 +28,7 @@ import com.gnuoynawh.udemy.todo.data.viewmodel.TodoViewModel
 import com.gnuoynawh.udemy.todo.databinding.FragmentListBinding
 import com.gnuoynawh.udemy.todo.fragment.SharedViewModel
 import com.gnuoynawh.udemy.todo.hideKeyboard
+import com.gnuoynawh.udemy.todo.observeOnce
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
@@ -80,8 +81,8 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delete_all -> confirmRemoval()
-            R.id.menu_priority_high -> mToDoViewModel.sortByHighPriority.observe(this, Observer { adapter.setData(it) })
-            R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(this, Observer { adapter.setData(it) })
+            R.id.menu_priority_high -> mToDoViewModel.sortByHighPriority.observe(viewLifecycleOwner, Observer { adapter.setData(it) })
+            R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(viewLifecycleOwner, Observer { adapter.setData(it) })
         }
         return super.onOptionsItemSelected(item)
     }
@@ -104,7 +105,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         var searchQuery = query
         searchQuery = "%$searchQuery%"
 
-        mToDoViewModel.searchItems(searchQuery).observe(this, Observer { list ->
+        mToDoViewModel.searchItems(searchQuery).observeOnce(viewLifecycleOwner, Observer { list ->
             list?.let{
                 adapter.setData(list)
             }
