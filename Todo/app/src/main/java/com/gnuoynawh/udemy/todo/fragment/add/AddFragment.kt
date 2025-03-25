@@ -18,24 +18,27 @@ import com.gnuoynawh.udemy.todo.R
 import com.gnuoynawh.udemy.todo.data.models.Priority
 import com.gnuoynawh.udemy.todo.data.models.TodoData
 import com.gnuoynawh.udemy.todo.data.viewmodel.TodoViewModel
+import com.gnuoynawh.udemy.todo.databinding.FragmentAddBinding
 import com.gnuoynawh.udemy.todo.fragment.SharedViewModel
 
 class AddFragment : Fragment() {
 
-    private lateinit var mView: View
     private val mTodoViewModel: TodoViewModel by viewModels()
     private val mSharedViewModel: SharedViewModel by viewModels()
+
+    private var _binding: FragmentAddBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mView = inflater.inflate(R.layout.fragment_add, container, false)
-        mView.findViewById<Spinner>(R.id.spinner_priorities).onItemSelectedListener = mSharedViewModel.listener
+        _binding = FragmentAddBinding.inflate(layoutInflater, container, false)
+        binding.spinnerPriorities.onItemSelectedListener = mSharedViewModel.listener
 
         setHasOptionsMenu(true)
 
-        return mView
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -50,9 +53,9 @@ class AddFragment : Fragment() {
     }
 
     private fun insertDataTodo() {
-        val mTitle = mView.findViewById<EditText>(R.id.edt_title).text.toString()
-        val mPriority = mView.findViewById<Spinner>(R.id.spinner_priorities).selectedItem.toString()
-        val mDescription = mView.findViewById<EditText>(R.id.edt_description).text.toString()
+        val mTitle = binding.edtTitle.text.toString()
+        val mPriority = binding.spinnerPriorities.selectedItem.toString()
+        val mDescription = binding.edtDescription.text.toString()
 
         val validation = mSharedViewModel.verifyDataFromUser(mTitle, mDescription)
         if (validation) {
@@ -70,5 +73,8 @@ class AddFragment : Fragment() {
         }
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
